@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { RequireAdmin } from "@/components/auth/Guards";
 import { EmptyState, ErrorState, LoadingRows, PageHeader } from "@/components/States";
-import { Field } from "@/components/candidates/CandidateDialog";
+import { Field, type FormErrors } from "@/components/candidates/CandidateDialog";
 import { useCreateProfile, useProfiles } from "@/hooks/useProfiles";
 import type { Role } from "@/types";
 
@@ -75,7 +75,7 @@ function AccountDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o
   const create = useCreateProfile();
   const [role, setRole] = useState<Role>("customer");
   const [form, setForm] = useState(empty);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
   useEffect(() => {
     if (open) { setForm(empty); setRole("customer"); setErrors({}); }
   }, [open]);
@@ -83,7 +83,7 @@ function AccountDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: FormErrors = {};
     if (!form.full_name.trim()) errs.full_name = "Ange namn.";
     if (!form.company_name.trim()) errs.company_name = "Ange företag.";
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) errs.email = "Ange en giltig e-postadress.";

@@ -11,7 +11,7 @@ export function useCandidates(customerId: string | null) {
 }
 
 export interface SaveCandidateVars {
-  id?: string;
+  id?: string | undefined;
   input: CandidateInput;
   jobIds: string[];
 }

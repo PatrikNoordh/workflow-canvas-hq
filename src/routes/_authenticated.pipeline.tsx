@@ -57,7 +57,7 @@ function Pipeline({ customerId }: { customerId: string }) {
 
   const isLoading = apps.isLoading || cands.isLoading || jobs.isLoading;
   const isError = apps.isError || cands.isError || jobs.isError;
-  const setSearch = (patch: { job?: string; q?: string }) =>
+  const setSearch = (patch: { job?: string | undefined; q?: string | undefined }) =>
     navigate({ to: ".", search: (prev) => ({ ...prev, ...patch }), replace: true });
 
   return (

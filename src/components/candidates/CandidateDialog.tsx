@@ -12,6 +12,8 @@ import { useSaveCandidate } from "@/hooks/useCandidates";
 import { isLinkedInUrl } from "@/lib/stages";
 import type { Candidate } from "@/types";
 
+export type FormErrors = Partial<Record<"full_name" | "email" | "linkedin_url" | "company_name" | "password" | "title" | "location", string>>;
+
 const empty = { full_name: "", email: "", phone: "", linkedin_url: "", notes: "" };
 
 export function CandidateDialog({
@@ -30,7 +32,7 @@ export function CandidateDialog({
   const save = useSaveCandidate(customerId);
   const [form, setForm] = useState(empty);
   const [jobIds, setJobIds] = useState<string[]>([]);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     if (!open) return;
@@ -50,7 +52,7 @@ export function CandidateDialog({
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: FormErrors = {};
     if (!form.full_name.trim()) errs.full_name = "Ange namn.";
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) errs.email = "Ange en giltig e-postadress.";
     if (form.linkedin_url.trim() && !isLinkedInUrl(form.linkedin_url.trim())) errs.linkedin_url = "Länken måste gå till linkedin.com.";
@@ -117,7 +119,7 @@ export function CandidateDialog({
   );
 }
 
-export function Field({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) {
+export function Field({ id, label, error, children }: { id: string; label: string; error?: string | undefined; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
       <Label htmlFor={id}>{label}</Label>

@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CustomerGate } from "@/components/layout/CustomerGate";
 import { EmptyState, ErrorState, LoadingRows, PageHeader } from "@/components/States";
-import { Field } from "@/components/candidates/CandidateDialog";
+import { Field, type FormErrors } from "@/components/candidates/CandidateDialog";
 import { useCreateJob, useJobs, useUpdateJob } from "@/hooks/useJobs";
 import { useApplications } from "@/hooks/useApplications";
 import type { Job } from "@/types";
@@ -100,7 +100,7 @@ function JobDialog({ customerId, open, onOpenChange, job }: { customerId: string
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     if (!open) return;
@@ -112,7 +112,7 @@ function JobDialog({ customerId, open, onOpenChange, job }: { customerId: string
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: FormErrors = {};
     if (!title.trim()) errs.title = "Ange en titel.";
     if (!location.trim()) errs.location = "Ange en ort.";
     setErrors(errs);
