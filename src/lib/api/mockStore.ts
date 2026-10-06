@@ -37,7 +37,7 @@ function daysAgo(n: number) {
 
 function slug(name: string) {
   return name
-    .split(" ")[0]
+    .split(" ")[0]!
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
@@ -75,7 +75,7 @@ function seed(): Store {
   const applications: Application[] = [];
 
   for (const customerId of ["p_nordkust", "p_lumen"]) {
-    const cJobs = jobDefs[customerId].map(([title, location, status], i) => {
+    const cJobs = jobDefs[customerId]!.map(([title, location, status], i) => {
       const job: Job = {
         id: `${customerId}_job${i + 1}`,
         customer_id: customerId,
@@ -89,7 +89,7 @@ function seed(): Store {
       return job;
     });
 
-    names[customerId].forEach((full_name, i) => {
+    names[customerId]!.forEach((full_name, i) => {
       const cand: Candidate = {
         id: `${customerId}_cand${i + 1}`,
         customer_id: customerId,
@@ -102,14 +102,14 @@ function seed(): Store {
       };
       candidates.push(cand);
 
-      const links: [number, Stage][] = [[i % cJobs.length, STAGE_ORDER[i % 6]]];
-      if (i % 5 === 0) links.push([(i + 1) % cJobs.length, STAGE_ORDER[(i + 1) % 6]]);
+      const links: [number, Stage][] = [[i % cJobs.length, STAGE_ORDER[i % 6]!]];
+      if (i % 5 === 0) links.push([(i + 1) % cJobs.length, STAGE_ORDER[(i + 1) % 6]!]);
       links.forEach(([jobIdx, stage], k) => {
         const changed = daysAgo(((i * 7 + k * 3) % 24) + 1);
         applications.push({
           id: `${cand.id}_app${k + 1}`,
           customer_id: customerId,
-          job_id: cJobs[jobIdx].id,
+          job_id: cJobs[jobIdx]!.id,
           candidate_id: cand.id,
           stage,
           position: i,
