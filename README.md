@@ -1,24 +1,12 @@
 # Mini-ATS
 
-Implement exactly the screenshot and nothing else
+A small applicant tracking system for companies that recruit, built as a code test for Devotion Ventures.
 
-This project was built with [Lovable](https://lovable.dev).
+**Status:** work in progress, built in public. Deadline Monday 26 October 2026. Follow the progress in [Issues](../../issues) and [Pull requests](../../pulls).
 
-## Build with Lovable
+- What is being built and in which order: [`TICKETS.md`](TICKETS.md)
+- Rules for the codebase: [`CLAUDE.md`](CLAUDE.md)
+- UI spec and visual prototype: [`docs/`](docs)
+- Database schema and security tests: [`supabase/`](supabase)
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e59391fe-5fb2-4cf3-887a-c0f739a74255).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Lovable built the first version of the UI from my spec. After that, the code is written with Claude Code. I direct the work, set the rules, review and test. A full README follows in ATS-16.
